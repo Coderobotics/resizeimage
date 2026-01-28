@@ -199,16 +199,16 @@ export function ProcessingControls({
           </div>
         )}
 
-        <div className="space-y-2">
+        <div className="space-y-2 mb-4">
           <Label>Output Format</Label>
           <Select
             value={format}
             onValueChange={(v: any) => setFormat(v)}
           >
-            <SelectTrigger>
+            <SelectTrigger className="w-full">
               <SelectValue placeholder="Select format" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="z-[100]">
               <SelectItem value="jpeg">JPEG (Best for photos)</SelectItem>
               <SelectItem value="png">PNG (Lossless, transparent)</SelectItem>
               <SelectItem value="webp">WebP (Modern optimization)</SelectItem>
@@ -219,7 +219,7 @@ export function ProcessingControls({
         <Button
           onClick={handleSubmit}
           disabled={isProcessing}
-          className="w-full h-12 text-base font-semibold shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all"
+          className="w-full h-12 text-base font-semibold shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all mt-6"
         >
           {isProcessing ? (
             <>
