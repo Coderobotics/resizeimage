@@ -113,9 +113,9 @@ export default function Home() {
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="bg-primary/10 p-2 rounded-lg">
-              <ImageIcon className="w-5 h-5 text-primary" />
+              <RefreshCw className="w-5 h-5 text-primary" />
             </div>
-            <h1 className="font-display text-xl font-bold tracking-tight">ResizeImage.io</h1>
+            <h1 className="font-display text-xl font-bold tracking-tight">ResizeImage.ai</h1>
           </div>
           <a
             href="https://github.com"
