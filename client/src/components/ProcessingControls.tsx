@@ -21,6 +21,7 @@ interface ProcessingControlsProps {
   isProcessing: boolean;
   onProcess: (params: any) => void;
   originalSize: number;
+  originalDimensions?: { width: number; height: number };
 }
 
 export function ProcessingControls({
@@ -28,14 +29,39 @@ export function ProcessingControls({
   isProcessing,
   onProcess,
   originalSize,
+  originalDimensions,
 }: ProcessingControlsProps) {
   // Common state
   const [format, setFormat] = useState<"jpeg" | "png" | "webp">("jpeg");
 
   // Resize state
-  const [width, setWidth] = useState<number>(1920);
-  const [height, setHeight] = useState<number>(1080);
+  const [width, setWidth] = useState<number>(originalDimensions?.width || 1920);
+  const [height, setHeight] = useState<number>(originalDimensions?.height || 1080);
   const [maintainRatio, setMaintainRatio] = useState(true);
+
+  // Update dimensions when originalDimensions changes
+  useEffect(() => {
+    if (originalDimensions) {
+      setWidth(originalDimensions.width);
+      setHeight(originalDimensions.height);
+    }
+  }, [originalDimensions]);
+
+  const handleWidthChange = (newWidth: number) => {
+    setWidth(newWidth);
+    if (maintainRatio && originalDimensions) {
+      const ratio = originalDimensions.height / originalDimensions.width;
+      setHeight(Math.round(newWidth * ratio));
+    }
+  };
+
+  const handleHeightChange = (newHeight: number) => {
+    setHeight(newHeight);
+    if (maintainRatio && originalDimensions) {
+      const ratio = originalDimensions.width / originalDimensions.height;
+      setWidth(Math.round(newHeight * ratio));
+    }
+  };
 
   // Compress state
   const [quality, setQuality] = useState([80]);
@@ -89,7 +115,7 @@ export function ProcessingControls({
                 id="width-input"
                 type="number"
                 value={width}
-                onChange={(e) => setWidth(Number(e.target.value))}
+                onChange={(e) => handleWidthChange(Number(e.target.value))}
                 className="font-mono"
               />
             </div>
@@ -99,7 +125,7 @@ export function ProcessingControls({
                 id="height-input"
                 type="number"
                 value={height}
-                onChange={(e) => setHeight(Number(e.target.value))}
+                onChange={(e) => handleHeightChange(Number(e.target.value))}
                 className="font-mono"
               />
             </div>

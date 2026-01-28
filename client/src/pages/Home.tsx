@@ -14,6 +14,7 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState<"resize" | "compress" | "upscale">("resize");
   const [uploadedFile, setUploadedFile] = useState<{ id: number; filename: string; originalName: string } | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [originalDimensions, setOriginalDimensions] = useState<{ width: number; height: number } | null>(null);
   const [processedResult, setProcessedResult] = useState<{ url: string; size: number; filename: string; mimeType: string } | null>(null);
   
   const { toast } = useToast();
@@ -25,6 +26,13 @@ export default function Home() {
     const objectUrl = URL.createObjectURL(file);
     setPreviewUrl(objectUrl);
     setProcessedResult(null); // Clear previous result
+
+    // Get image dimensions
+    const img = new Image();
+    img.onload = () => {
+      setOriginalDimensions({ width: img.width, height: img.height });
+    };
+    img.src = objectUrl;
 
     try {
       const result = await uploadMutation.mutateAsync(file);
@@ -206,6 +214,7 @@ export default function Home() {
                             isProcessing={processMutation.isPending}
                             onProcess={handleProcess}
                             originalSize={0} // We could get this if needed
+                            originalDimensions={originalDimensions || undefined}
                           />
                         ) : (
                           <motion.div
