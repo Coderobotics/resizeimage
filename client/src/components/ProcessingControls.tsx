@@ -21,7 +21,7 @@ interface ProcessingControlsProps {
   isProcessing: boolean;
   onProcess: (params: any) => void;
   originalSize: number;
-  originalDimensions?: { width: number; height: number };
+  originalDimensions?: { width: number; height: number; mimeType?: string };
 }
 
 export function ProcessingControls({
@@ -33,6 +33,16 @@ export function ProcessingControls({
 }: ProcessingControlsProps) {
   // Common state
   const [format, setFormat] = useState<"jpeg" | "png" | "webp">("jpeg");
+
+  // Update format when original mimeType is available
+  useEffect(() => {
+    if (originalDimensions?.mimeType) {
+      const type = originalDimensions.mimeType.split("/")[1];
+      if (type === "jpeg" || type === "jpg") setFormat("jpeg");
+      else if (type === "png") setFormat("png");
+      else if (type === "webp") setFormat("webp");
+    }
+  }, [originalDimensions]);
 
   // Resize state
   const [width, setWidth] = useState<number>(originalDimensions?.width || 1920);

@@ -14,7 +14,7 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState<"resize" | "compress" | "upscale">("resize");
   const [uploadedFile, setUploadedFile] = useState<{ id: number; filename: string; originalName: string } | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [originalDimensions, setOriginalDimensions] = useState<{ width: number; height: number } | null>(null);
+  const [originalDimensions, setOriginalDimensions] = useState<{ width: number; height: number; mimeType: string } | null>(null);
   const [processedResult, setProcessedResult] = useState<{ url: string; size: number; filename: string; mimeType: string } | null>(null);
   
   const { toast } = useToast();
@@ -30,7 +30,11 @@ export default function Home() {
     // Get image dimensions
     const img = new Image();
     img.onload = () => {
-      setOriginalDimensions({ width: img.width, height: img.height });
+      setOriginalDimensions({ 
+        width: img.width, 
+        height: img.height,
+        mimeType: file.type
+      });
     };
     img.src = objectUrl;
 
