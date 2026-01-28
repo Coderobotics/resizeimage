@@ -25,7 +25,7 @@ export async function registerRoutes(
   // Serve processed files statically if needed, or use the download endpoint
   // app.use('/uploads', express.static(UPLOADS_DIR));
 
-  app.post(api.images.upload.path, upload.single('image'), async (req, res) => {
+  app.post(api.images.upload.path, upload.single('file'), async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ message: "No file uploaded" });
     }
