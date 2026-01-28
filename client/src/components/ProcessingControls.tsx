@@ -1,0 +1,207 @@
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Slider } from "@/components/ui/slider";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Switch } from "@/components/ui/switch";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { Loader2, Download, RefreshCw, Wand2, Minimize2, Maximize2 } from "lucide-react";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+
+interface ProcessingControlsProps {
+  mode: "resize" | "compress" | "upscale";
+  isProcessing: boolean;
+  onProcess: (params: any) => void;
+  originalSize: number;
+}
+
+export function ProcessingControls({
+  mode,
+  isProcessing,
+  onProcess,
+  originalSize,
+}: ProcessingControlsProps) {
+  // Common state
+  const [format, setFormat] = useState<"jpeg" | "png" | "webp">("jpeg");
+
+  // Resize state
+  const [width, setWidth] = useState<number>(1920);
+  const [height, setHeight] = useState<number>(1080);
+  const [maintainRatio, setMaintainRatio] = useState(true);
+
+  // Compress state
+  const [quality, setQuality] = useState([80]);
+
+  // Upscale state
+  const [scale, setScale] = useState<number>(2);
+
+  const handleSubmit = () => {
+    let params: any = { format };
+
+    if (mode === "resize") {
+      params = { ...params, width, height, maintainAspectRatio: maintainRatio };
+    } else if (mode === "compress") {
+      params = { ...params, quality: quality[0] };
+    } else if (mode === "upscale") {
+      params = { ...params, scale };
+    }
+
+    onProcess(params);
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+  };
+
+  return (
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      className="space-y-6 rounded-2xl border border-border bg-card p-6 shadow-sm"
+    >
+      <div className="flex items-center justify-between">
+        <h3 className="font-display text-lg font-semibold">
+          {mode === "resize" && "Resize Settings"}
+          {mode === "compress" && "Compression Level"}
+          {mode === "upscale" && "Upscale Factor"}
+        </h3>
+        <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+          Configuration
+        </span>
+      </div>
+
+      <div className="space-y-6">
+        {mode === "resize" && (
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="width-input">Width (px)</Label>
+              <Input
+                id="width-input"
+                type="number"
+                value={width}
+                onChange={(e) => setWidth(Number(e.target.value))}
+                className="font-mono"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="height-input">Height (px)</Label>
+              <Input
+                id="height-input"
+                type="number"
+                value={height}
+                onChange={(e) => setHeight(Number(e.target.value))}
+                className="font-mono"
+              />
+            </div>
+            <div className="col-span-2 flex items-center space-x-2">
+              <Checkbox
+                id="aspect-ratio"
+                checked={maintainRatio}
+                onCheckedChange={(c) => setMaintainRatio(!!c)}
+              />
+              <Label htmlFor="aspect-ratio" className="font-normal cursor-pointer">
+                Lock aspect ratio
+              </Label>
+            </div>
+          </div>
+        )}
+
+        {mode === "compress" && (
+          <div className="space-y-4">
+            <div className="flex justify-between">
+              <Label>Quality</Label>
+              <span className="font-mono text-sm text-muted-foreground">
+                {quality[0]}%
+              </span>
+            </div>
+            <Slider
+              value={quality}
+              onValueChange={setQuality}
+              min={1}
+              max={100}
+              step={1}
+              className="py-4"
+            />
+            <p className="text-xs text-muted-foreground">
+              Lower quality results in smaller file size but may reduce image clarity.
+            </p>
+          </div>
+        )}
+
+        {mode === "upscale" && (
+          <div className="grid grid-cols-2 gap-4">
+            <Button
+              variant={scale === 2 ? "default" : "outline"}
+              onClick={() => setScale(2)}
+              className="h-24 flex-col space-y-2 text-lg"
+            >
+              <span className="text-3xl font-bold">2x</span>
+              <span className="text-xs font-normal opacity-70">
+                Standard Upscale
+              </span>
+            </Button>
+            <Button
+              variant={scale === 4 ? "default" : "outline"}
+              onClick={() => setScale(4)}
+              className="h-24 flex-col space-y-2 text-lg"
+            >
+              <span className="text-3xl font-bold">4x</span>
+              <span className="text-xs font-normal opacity-70">
+                Ultra Upscale
+              </span>
+            </Button>
+          </div>
+        )}
+
+        <div className="space-y-2">
+          <Label>Output Format</Label>
+          <Select
+            value={format}
+            onValueChange={(v: any) => setFormat(v)}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Select format" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="jpeg">JPEG (Best for photos)</SelectItem>
+              <SelectItem value="png">PNG (Lossless, transparent)</SelectItem>
+              <SelectItem value="webp">WebP (Modern optimization)</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <Button
+          onClick={handleSubmit}
+          disabled={isProcessing}
+          className="w-full h-12 text-base font-semibold shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all"
+        >
+          {isProcessing ? (
+            <>
+              <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+              Processing...
+            </>
+          ) : (
+            <>
+              {mode === "resize" && <Minimize2 className="mr-2 h-5 w-5" />}
+              {mode === "compress" && <RefreshCw className="mr-2 h-5 w-5" />}
+              {mode === "upscale" && <Wand2 className="mr-2 h-5 w-5" />}
+              {mode === "resize" && "Resize Image"}
+              {mode === "compress" && "Compress Image"}
+              {mode === "upscale" && "Upscale Image"}
+            </>
+          )}
+        </Button>
+      </div>
+    </motion.div>
+  );
+}
