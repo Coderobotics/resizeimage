@@ -199,7 +199,7 @@ export function ProcessingControls({
           </div>
         )}
 
-        <div className="space-y-2 mb-4">
+        <div className="space-y-2 mb-8 relative z-[50]">
           <Label>Output Format</Label>
           <Select
             value={format}
@@ -208,7 +208,7 @@ export function ProcessingControls({
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Select format" />
             </SelectTrigger>
-            <SelectContent className="z-[100]">
+            <SelectContent className="z-[100]" position="popper" sideOffset={5}>
               <SelectItem value="jpeg">JPEG (Best for photos)</SelectItem>
               <SelectItem value="png">PNG (Lossless, transparent)</SelectItem>
               <SelectItem value="webp">WebP (Modern optimization)</SelectItem>
@@ -216,27 +216,29 @@ export function ProcessingControls({
           </Select>
         </div>
 
-        <Button
-          onClick={handleSubmit}
-          disabled={isProcessing}
-          className="w-full h-12 text-base font-semibold shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all mt-6"
-        >
-          {isProcessing ? (
-            <>
-              <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-              Processing...
-            </>
-          ) : (
-            <>
-              {mode === "resize" && <Minimize2 className="mr-2 h-5 w-5" />}
-              {mode === "compress" && <RefreshCw className="mr-2 h-5 w-5" />}
-              {mode === "upscale" && <Wand2 className="mr-2 h-5 w-5" />}
-              {mode === "resize" && "Resize Image"}
-              {mode === "compress" && "Compress Image"}
-              {mode === "upscale" && "Upscale Image"}
-            </>
-          )}
-        </Button>
+        <div className="pt-4">
+          <Button
+            onClick={handleSubmit}
+            disabled={isProcessing}
+            className="w-full h-12 text-base font-semibold shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all"
+          >
+            {isProcessing ? (
+              <>
+                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                Processing...
+              </>
+            ) : (
+              <>
+                {mode === "resize" && <Minimize2 className="mr-2 h-5 w-5" />}
+                {mode === "compress" && <RefreshCw className="mr-2 h-5 w-5" />}
+                {mode === "upscale" && <Wand2 className="mr-2 h-5 w-5" />}
+                {mode === "resize" && "Resize Image"}
+                {mode === "compress" && "Compress Image"}
+                {mode === "upscale" && "Upscale Image"}
+              </>
+            )}
+          </Button>
+        </div>
       </div>
     </motion.div>
   );
