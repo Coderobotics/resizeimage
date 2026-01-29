@@ -144,11 +144,26 @@ export default function Home() {
               }}
               className="w-full"
             >
-              <div className="border-b border-border/50 px-6 pt-6">
-                <TabsList className="grid w-full grid-cols-3 h-12 bg-muted/50 p-1 mb-6">
-                  <TabsTrigger value="resize" className="text-sm font-medium">Resize</TabsTrigger>
-                  <TabsTrigger value="compress" className="text-sm font-medium">Compress</TabsTrigger>
-                  <TabsTrigger value="upscale" className="text-sm font-medium">Upscale AI</TabsTrigger>
+              <div className="border-b border-border/50 px-6 pt-6 bg-muted/20">
+                <TabsList className="grid w-full grid-cols-3 h-14 bg-muted/50 p-1.5 mb-6">
+                  <TabsTrigger 
+                    value="resize" 
+                    className="text-base font-bold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all"
+                  >
+                    Resize
+                  </TabsTrigger>
+                  <TabsTrigger 
+                    value="compress" 
+                    className="text-base font-bold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all"
+                  >
+                    Compress
+                  </TabsTrigger>
+                  <TabsTrigger 
+                    value="upscale" 
+                    className="text-base font-bold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all"
+                  >
+                    Upscale AI
+                  </TabsTrigger>
                 </TabsList>
               </div>
 
@@ -260,26 +275,26 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-8 pt-12">
              {[
                {
-                 title: "Smart Resizing",
-                 desc: "Resize by pixel dimensions or percentage while maintaining aspect ratio.",
+                 title: "Resize Image",
+                 desc: "Change dimensions with pixel-perfect accuracy while maintaining your image's quality.",
                  icon: Minimize2
                },
                {
-                 title: "Lossless Compression",
-                 desc: "Reduce file size significantly without visible loss in quality.",
+                 title: "Compress Image",
+                 desc: "Reduce file size up to 90% without losing visible quality for faster web loading.",
                  icon: RefreshCw
                },
                {
-                 title: "AI Upscaling",
-                 desc: "Increase resolution up to 4x using advanced neural networks.",
+                 title: "Upscale Image AI",
+                 desc: "Enhance resolution up to 4x using high-performance neural network algorithms.",
                  icon: Wand2
                }
              ].map((feature, i) => (
-               <div key={i} className="group p-6 rounded-2xl bg-card border border-border hover:border-primary/50 transition-colors">
-                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4 group-hover:scale-110 transition-transform">
-                   <feature.icon className="w-6 h-6" />
+               <div key={i} className="group p-8 rounded-2xl bg-card border border-border hover:border-primary/50 transition-all hover:shadow-xl hover:shadow-primary/5">
+                 <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
+                   <feature.icon className="w-7 h-7" />
                  </div>
-                 <h3 className="text-lg font-bold font-display mb-2">{feature.title}</h3>
+                 <h3 className="text-xl font-bold font-display mb-3">{feature.title}</h3>
                  <p className="text-muted-foreground text-sm leading-relaxed">{feature.desc}</p>
                </div>
              ))}
