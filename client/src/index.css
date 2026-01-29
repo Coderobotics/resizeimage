@@ -12,7 +12,7 @@
   --background: 210 40% 98%;
   --foreground: 222 47% 11%;
   
-  --primary: 246 80% 60%; /* Vivid Purple-Blue */
+  --primary: 230 85% 55%; /* #2848ed */
   --primary-foreground: 210 40% 98%;
   
   --secondary: 210 40% 96%;
@@ -21,7 +21,7 @@
   --muted: 210 40% 96%;
   --muted-foreground: 215 16% 47%;
   
-  --accent: 262 83% 58%; /* Purple Accent */
+  --accent: 230 85% 55%;
   --accent-foreground: 210 40% 98%;
   
   --destructive: 0 84% 60%;
@@ -29,7 +29,7 @@
   
   --border: 214 32% 91%;
   --input: 214 32% 91%;
-  --ring: 246 80% 60%;
+  --ring: 230 85% 55%;
   
   --radius: 1rem;
 }
