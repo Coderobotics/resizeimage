@@ -117,14 +117,6 @@ export default function Home() {
             </div>
             <h1 className="font-display text-xl font-bold tracking-tight">ResizeImage.ai</h1>
           </div>
-          <a
-            href="https://github.com"
-            target="_blank"
-            rel="noreferrer"
-            className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-          >
-            GitHub
-          </a>
         </div>
       </header>
 
