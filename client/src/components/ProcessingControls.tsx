@@ -83,6 +83,10 @@ export function ProcessingControls({
   // Compress state
   const [quality, setQuality] = useState([80]);
 
+  const estimatedCompressedSize = originalDimensions?.size 
+    ? Math.round(originalDimensions.size * (quality[0] / 100) * 0.8) // Rough estimation logic
+    : null;
+
   // Upscale state
   const [scale, setScale] = useState<number>(2);
 
@@ -127,11 +131,18 @@ export function ProcessingControls({
             {mode === "compress" && "Compression Level"}
             {mode === "upscale" && "Upscale Factor"}
           </h3>
-          {originalDimensions?.size && (
-            <p className="text-xs text-muted-foreground">
-              Current file size: <span className="font-medium text-foreground">{formatFileSize(originalDimensions.size)}</span>
-            </p>
-          )}
+          <div className="flex flex-col gap-0.5">
+            {originalDimensions?.size && (
+              <p className="text-xs text-muted-foreground">
+                Original size: <span className="font-medium text-foreground">{formatFileSize(originalDimensions.size)}</span>
+              </p>
+            )}
+            {mode === "compress" && estimatedCompressedSize && (
+              <p className="text-xs text-muted-foreground">
+                Estimated output: <span className="font-medium text-primary">{formatFileSize(estimatedCompressedSize)}</span>
+              </p>
+            )}
+          </div>
         </div>
         <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
           Configuration
