@@ -12,14 +12,12 @@ import { api, buildUrl } from "@shared/routes";
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<"resize" | "compress" | "upscale">("resize");
-  const [uploadedFile, setUploadedFile] = useState<{ id: number; filename: string; originalName: string } | null>(null);
+  const [uploadedFile, setUploadedFile] = useState<{ file: File; originalName: string } | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [originalDimensions, setOriginalDimensions] = useState<{ width: number; height: number; mimeType: string; size: number } | null>(null);
   const [processedResult, setProcessedResult] = useState<{ url: string; size: number; filename: string; mimeType: string } | null>(null);
   
   const { toast } = useToast();
-  const uploadMutation = useUploadImage();
-  const processMutation = useProcessImage();
 
   const handleFileSelect = async (file: File) => {
     // Create local preview immediately
@@ -39,34 +37,30 @@ export default function Home() {
     };
     img.src = objectUrl;
 
-    try {
-      const result = await uploadMutation.mutateAsync(file);
-      setUploadedFile(result);
-      toast({
-        title: "Image uploaded successfully",
-        description: "Ready to process.",
-      });
-    } catch (error) {
-      toast({
-        title: "Upload failed",
-        description: (error as Error).message,
-        variant: "destructive",
-      });
-      setPreviewUrl(null);
-    }
+    setUploadedFile({ file, originalName: file.name });
   };
 
   const handleProcess = async (params: any) => {
     if (!uploadedFile) return;
 
     try {
-      const result = await processMutation.mutateAsync({
-        id: uploadedFile.id,
-        data: {
-          operation: activeTab,
-          params: params,
-        },
+      const formData = new FormData();
+      formData.append("file", uploadedFile.file);
+      formData.append("params", JSON.stringify({
+        operation: activeTab,
+        params: params,
+      }));
+
+      const res = await fetch(api.images.process.path, {
+        method: api.images.process.method,
+        body: formData,
       });
+
+      if (!res.ok) {
+        throw new Error("Processing failed");
+      }
+
+      const result = await res.json();
       setProcessedResult(result);
       toast({
         title: "Processing complete!",
@@ -179,7 +173,7 @@ export default function Home() {
                     >
                       <Dropzone
                         onFileSelect={handleFileSelect}
-                        isUploading={uploadMutation.isPending}
+                        isUploading={false}
                         className="min-h-[300px]"
                       />
                     </motion.div>
@@ -223,7 +217,7 @@ export default function Home() {
                         {!processedResult ? (
                           <ProcessingControls
                             mode={activeTab}
-                            isProcessing={processMutation.isPending}
+                            isProcessing={false}
                             onProcess={handleProcess}
                             originalSize={0} // We could get this if needed
                             originalDimensions={originalDimensions || undefined}

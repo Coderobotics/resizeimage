@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { insertProcessedImageSchema, processedImages } from './schema';
 
 export const errorSchemas = {
   validation: z.object({
@@ -16,50 +15,18 @@ export const errorSchemas = {
 
 export const api = {
   images: {
-    upload: {
-      method: 'POST' as const,
-      path: '/api/upload',
-      // Input is FormData, handled separately
-      responses: {
-        201: z.object({
-          id: z.number(),
-          filename: z.string(),
-          originalName: z.string(),
-        }),
-        400: errorSchemas.validation,
-      },
-    },
     process: {
       method: 'POST' as const,
-      path: '/api/process/:id',
-      input: z.object({
-        operation: z.enum(['resize', 'compress', 'upscale']),
-        params: z.union([
-          z.object({
-            width: z.number().optional(),
-            height: z.number().optional(),
-            maintainAspectRatio: z.boolean(),
-            format: z.enum(['jpeg', 'png', 'webp']),
-          }), // Resize
-          z.object({
-            quality: z.number().min(1).max(100),
-            format: z.enum(['jpeg', 'png', 'webp']),
-          }), // Compress
-          z.object({
-            scale: z.number(),
-            format: z.enum(['jpeg', 'png', 'webp']),
-          }), // Upscale
-        ]),
-      }),
+      path: '/api/process',
+      // Input is FormData containing the file and processing params as JSON string
       responses: {
         200: z.object({
-          id: z.number(),
           url: z.string(),
           filename: z.string(),
           size: z.number(),
           mimeType: z.string(),
         }),
-        404: errorSchemas.notFound,
+        400: errorSchemas.validation,
         500: errorSchemas.internal,
       },
     },
