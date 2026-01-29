@@ -162,7 +162,7 @@ export default function Home() {
                     value="upscale" 
                     className="text-base font-bold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all"
                   >
-                    Upscale AI
+                    Upscale
                   </TabsTrigger>
                 </TabsList>
               </div>
@@ -285,7 +285,7 @@ export default function Home() {
                  icon: RefreshCw
                },
                {
-                 title: "Upscale Image AI",
+                 title: "Upscale Image",
                  desc: "Enhance resolution up to 4x using high-performance neural network algorithms.",
                  icon: Wand2
                }
