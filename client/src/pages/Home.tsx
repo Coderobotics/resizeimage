@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useUploadImage, useProcessImage } from "@/hooks/use-images";
 import { Dropzone } from "@/components/Dropzone";
 import { ProcessingControls } from "@/components/ProcessingControls";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -219,7 +218,7 @@ export default function Home() {
                             mode={activeTab}
                             isProcessing={false}
                             onProcess={handleProcess}
-                            originalSize={0} // We could get this if needed
+                            originalSize={uploadedFile?.file.size || 0}
                             originalDimensions={originalDimensions || undefined}
                           />
                         ) : (
