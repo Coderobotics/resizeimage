@@ -21,7 +21,7 @@ interface ProcessingControlsProps {
   isProcessing: boolean;
   onProcess: (params: any) => void;
   originalSize: number;
-  originalDimensions?: { width: number; height: number; mimeType?: string };
+  originalDimensions?: { width: number; height: number; mimeType?: string; size?: number };
 }
 
 export function ProcessingControls({
@@ -105,6 +105,14 @@ export function ProcessingControls({
     visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
   };
 
+  const formatFileSize = (bytes: number) => {
+    if (bytes === 0) return "0 Bytes";
+    const k = 1024;
+    const sizes = ["Bytes", "KB", "MB", "GB"];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
+  };
+
   return (
     <motion.div
       variants={containerVariants}
@@ -113,11 +121,18 @@ export function ProcessingControls({
       className="space-y-6 rounded-2xl border border-border bg-card p-6 shadow-sm"
     >
       <div className="flex items-center justify-between">
-        <h3 className="font-display text-lg font-semibold">
-          {mode === "resize" && "Resize Settings"}
-          {mode === "compress" && "Compression Level"}
-          {mode === "upscale" && "Upscale Factor"}
-        </h3>
+        <div className="space-y-1">
+          <h3 className="font-display text-lg font-semibold">
+            {mode === "resize" && "Resize Settings"}
+            {mode === "compress" && "Compression Level"}
+            {mode === "upscale" && "Upscale Factor"}
+          </h3>
+          {originalDimensions?.size && (
+            <p className="text-xs text-muted-foreground">
+              Current file size: <span className="font-medium text-foreground">{formatFileSize(originalDimensions.size)}</span>
+            </p>
+          )}
+        </div>
         <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
           Configuration
         </span>
