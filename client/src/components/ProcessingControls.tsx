@@ -73,6 +73,13 @@ export function ProcessingControls({
     }
   };
 
+  const setOriginalSize = () => {
+    if (originalDimensions) {
+      setWidth(originalDimensions.width);
+      setHeight(originalDimensions.height);
+    }
+  };
+
   // Compress state
   const [quality, setQuality] = useState([80]);
 
@@ -139,15 +146,27 @@ export function ProcessingControls({
                 className="font-mono"
               />
             </div>
-            <div className="col-span-2 flex items-center space-x-2">
-              <Checkbox
-                id="aspect-ratio"
-                checked={maintainRatio}
-                onCheckedChange={(c) => setMaintainRatio(!!c)}
-              />
-              <Label htmlFor="aspect-ratio" className="font-normal cursor-pointer">
-                Lock aspect ratio
-              </Label>
+            <div className="col-span-2 flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="aspect-ratio"
+                  checked={maintainRatio}
+                  onCheckedChange={(c) => setMaintainRatio(!!c)}
+                />
+                <Label htmlFor="aspect-ratio" className="font-normal cursor-pointer">
+                  Lock aspect ratio
+                </Label>
+              </div>
+              {originalDimensions && (
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={setOriginalSize}
+                  className="h-auto p-0 text-xs text-primary hover:bg-transparent"
+                >
+                  Reset to {originalDimensions.width}x{originalDimensions.height}
+                </Button>
+              )}
             </div>
           </div>
         )}
