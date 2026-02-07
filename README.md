@@ -1,4 +1,8 @@
-<b>How I Built an AI Image Resizer, Compressor, and Upscaler App in Replit in 60 Seconds</b>
+<b>AI Image Resizer, Compressor, and Upscaler App in Replit</b>
+
+This is Sasi, Soloprenur from Coderobotics (tech-driven digital agency), Phpscriptsonline.com (ready-made PHP scripts marketplace), Aspscriptsonline.com (ready-made software source code marketplace), Pythonscriptsonline.com (Buy, Sell Python Scripts Marketplace).
+
+<b>How I Built an AI Image Resizer, Compressor, and Upscaler App in Replit</b>
 
 I thought of trying clone of resizeimage.io website
 
@@ -17,6 +21,8 @@ This was really amazing.
 If I would have started coding not sure how many days It would take me to complete.
 
 But Replit did my job in minutes.
+
+Download the source code here and enjoy!
 
 If you're looking for readymade php scripts<br>
 https://www.phpscriptsonline.com/products <br>
