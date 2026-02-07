@@ -1,6 +1,7 @@
 <b>AI Image Resizer, Compressor, and Upscaler App in Replit</b>
 
-This is Sasi, Solopreneur & Head of Projects from Coderobotics LLC, Dallas, TX, Phpscriptsonline.com (ready-made PHP scripts marketplace), Aspscriptsonline.com (ready-made software source code marketplace), Pythonscriptsonline.com (Buy, Sell Python Scripts Marketplace) are subsidiary of Coderobotics LLC.
+This is Sasi, Solopreneur and Head of Projects at Coderobotics LLC, Dallas, TX.
+Phpscriptsonline.com (ready-made PHP scripts marketplace), Aspscriptsonline.com (ready-made software source code marketplace), and Pythonscriptsonline.com (Python scripts buy/sell marketplace) are subsidiaries of Coderobotics (coderobotics.com).
 
 I Built an AI Image Resizer, Compressor, and Upscaler App in Replit.
 
