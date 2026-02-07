@@ -1,6 +1,6 @@
 <b>AI Image Resizer, Compressor, and Upscaler App in Replit</b>
 
-This is Sasi, Soloprenur from Coderobotics (tech-driven digital agency), Phpscriptsonline.com (ready-made PHP scripts marketplace), Aspscriptsonline.com (ready-made software source code marketplace), Pythonscriptsonline.com (Buy, Sell Python Scripts Marketplace).
+This is Sasi, Solopreneur from Coderobotics LLC (tech-driven digital agency), Phpscriptsonline.com (ready-made PHP scripts marketplace), Aspscriptsonline.com (ready-made software source code marketplace), Pythonscriptsonline.com (Buy, Sell Python Scripts Marketplace).
 
 <b>How I Built an AI Image Resizer, Compressor, and Upscaler App in Replit</b>
 
