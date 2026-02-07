@@ -18,13 +18,13 @@ If I would have started coding not sure how many days It would take me to comple
 
 But Replit did my job in minutes.
 
-If you're looking for readymade php scripts
-https://www.phpscriptsonline.com/products
-If you're looking for readymade ASP.Net, C# software source code
-https://www.aspscriptsonline.com/products
-Download free PHP projects
-https://www.phpscriptsonline.com/product-category/free-php-projects
-If you're looking for Python scripts
-https://www.pythonscriptsonline.com/
-If you're looking for SEO, AI SEO, AI Search Visibility, digital marketing services, insights, AI-powered strategies.
+If you're looking for readymade php scripts<br>
+https://www.phpscriptsonline.com/products <br>
+If you're looking for readymade ASP.Net, C# software source code<br>
+https://www.aspscriptsonline.com/products <br>
+Download free PHP projects<br>
+https://www.phpscriptsonline.com/product-category/free-php-projects <br>
+If you're looking for Python scripts<br>
+https://www.pythonscriptsonline.com/<br>
+If you're looking for SEO, AI SEO, AI Search Visibility, digital marketing services, insights, AI-powered strategies.<br>
 https://www.coderobotics.com/
